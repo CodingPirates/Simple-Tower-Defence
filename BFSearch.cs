@@ -57,14 +57,14 @@ public class BFSearch : MonoBehaviour
 
     private IEnumerable<Vector3Int> getNeighbours(Vector3Int current)
     {
-        if (current.x > ground.cellBounds.xMin && ground.GetSprite(current + new Vector3Int(1, 0, 0)) == walkable)
-            yield return current + new Vector3Int(1, 0, 0);
-        if (current.x < ground.cellBounds.xMax && ground.GetSprite(current - new Vector3Int(1, 0, 0)) == walkable)
+        if (current.x > ground.cellBounds.xMin && ground.GetSprite(current - new Vector3Int(1, 0, 0)) == walkable)
             yield return current - new Vector3Int(1, 0, 0);
-        if (current.y > ground.cellBounds.yMin && ground.GetSprite(current + new Vector3Int(0, 1, 0)) == walkable)
-            yield return current + new Vector3Int(0, 1, 0);
-        if (current.y < ground.cellBounds.yMax && ground.GetSprite(current - new Vector3Int(0, 1, 0)) == walkable)
+        if (current.x < ground.cellBounds.xMax && ground.GetSprite(current + new Vector3Int(1, 0, 0)) == walkable)
+            yield return current + new Vector3Int(1, 0, 0);
+        if (current.y > ground.cellBounds.yMin && ground.GetSprite(current - new Vector3Int(0, 1, 0)) == walkable)
             yield return current - new Vector3Int(0, 1, 0);
+        if (current.y < ground.cellBounds.yMax && ground.GetSprite(current + new Vector3Int(0, 1, 0)) == walkable)
+            yield return current + new Vector3Int(0, 1, 0);
     }
 
     public Vector3Int? GetNext(Vector3Int current) => map.ContainsKey(current) ? map[current] : null;
