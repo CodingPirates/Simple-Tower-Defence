@@ -6,8 +6,16 @@ public class MonsterController : MonoBehaviour
     [SerializeField] BFSearch bfSearch;
     [SerializeField] Tilemap ground;
     [SerializeField] float speed = 5;
+    [SerializeField] float hitPoints = 5;
+    [SerializeField] RectTransform healthBar;
 
+    float maxHitPoints;
     private Vector3? target;
+
+    private void Start()
+    {
+        maxHitPoints = hitPoints;
+    }
 
     // Update is called once per frame
     void Update()
@@ -33,5 +41,13 @@ public class MonsterController : MonoBehaviour
             else
                 transform.position += direction * Time.deltaTime * speed;
         }
+    }
+
+    public void Hit(float dmg)
+    {
+        hitPoints -= dmg;
+        healthBar.offsetMax = new Vector2(-0.5f * (1-hitPoints/maxHitPoints), healthBar.offsetMax.y);
+        if (hitPoints <= 0)
+            Destroy(gameObject);
     }
 }
